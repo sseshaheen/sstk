@@ -1037,7 +1037,7 @@ AssetManager.prototype.loadAssetAsScene = function(info, callback) {
       if (err) {
         console.error('Error in loadScene:', err);  // Debug log
       } else {
-        console.log('Loaded asset in loadScene:', asset);  // Debug log
+        console.log('Loaded asset in loadScene:');  // Debug log
       }
       callback(err, asset);
     });
@@ -1051,7 +1051,7 @@ AssetManager.prototype.loadAssetAsScene = function(info, callback) {
       if (err) {
         console.error('Error in loadModelAsScene:', err);  // Debug log
       } else {
-        console.log('Loaded asset in loadModelAsScene:', asset);  // Debug log
+        console.log('Loaded asset in loadModelAsScene:');  // Debug log
       }
       callback(err, asset);
     });
@@ -1061,7 +1061,7 @@ AssetManager.prototype.loadAssetAsScene = function(info, callback) {
       if (err) {
         console.error('Error in loadArch:', err);  // Debug log
       } else {
-        console.log('Loaded asset in loadArch:', asset);  // Debug log
+        console.log('Loaded asset in loadArch:');  // Debug log
       }
       callback(err, asset);
     }, true);
