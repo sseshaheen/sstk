@@ -210,7 +210,7 @@ function processFiles() {
         var originalTexturePath;
         if (asset instanceof STK.scene.SceneState) {
           sceneState = asset;
-          console.log('Loaded scene state:', sceneState);  // Debug log
+          console.log('Loaded scene state');  // Debug log
         } else if (asset instanceof STK.model.ModelInstance) {
           var modelInstance = asset;
           var sceneInfo = _.defaults(
@@ -222,7 +222,7 @@ function processFiles() {
           // Hack to discard some nested layers of names for a model instance
           rootObject = modelInstance.getObject3D('Model').children[0];
           originalTexturePath = modelInstance.model.info.texturePath;
-          console.log('Loaded model instance:', modelInstance);  // Debug log
+          console.log('Loaded model instance');  // Debug log
         } else if (err) {
           console.error("Error loading asset using export-mesh.js", info, err);
           return;
