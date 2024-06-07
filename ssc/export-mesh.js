@@ -121,10 +121,16 @@ var nodeNameFunc = function (node) {
 // TODO: Support different exporters
 var meshExporter;
 var output_is_gltf = false;
+if (cmd.output_format === 'gltf' || cmd.output_format === 'glb'){
+  console.log('output_is_gltf loaded from config json is set to true');
+}
+//hardcoded for now
+cmd.output_format == 'gltf'
 if (cmd.output_format === 'obj') {
   meshExporter = new STK.exporters.OBJMTLExporter({ fs: STK.fs });
 } else if (cmd.output_format === 'gltf' || cmd.output_format === 'glb') {
   output_is_gltf = true;
+  console.log('output_is_gltf loaded from config json is set to true')
   meshExporter = new STK.exporters.GLTFExporter({ fs: STK.fs });
 } else if (cmd.output_format === 'ply') {
   meshExporter = new STK.exporters.PLYExporter({ fs: STK.fs });
@@ -199,6 +205,7 @@ function processFiles() {
       console.log('Load asset', info);
       timings.start('load');
       // let loadFunc = info.assetType === 'model' ? 'loadAsset' : 'loadAssetAsScene';
+      //hardcoded for now
       let loadFunc = 'loadAssetAsScene';
       console.log('Using load function:', loadFunc);  // Debug log
       console.log('Asset information:', JSON.stringify(info, null, 2));  // Debug log
