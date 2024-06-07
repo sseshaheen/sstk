@@ -135,7 +135,7 @@ function processFiles() {
           });
           sceneState.addObject(modelInstance, cmd.auto_align);
         } else if (err) {
-          console.error("Error loading asset", info, err);
+          console.error("Error loading asset using render-file.js", info, err);
           return;
         } else {
           console.error("Unsupported asset type ", info, asset);

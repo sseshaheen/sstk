@@ -223,7 +223,7 @@ function processFiles() {
           originalTexturePath = modelInstance.model.info.texturePath;
           console.log('Loaded model instance:', modelInstance);  // Debug log
         } else if (err) {
-          console.error("Error loading asset", info, err);
+          console.error("Error loading asset using export-mesh.js", info, err);
           return;
         } else {
           console.error("Unsupported asset type ", info, asset);
