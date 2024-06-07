@@ -162,29 +162,41 @@ function __fsWriteToFileCallback(opts) {
 
 function fsWriteToFile(filename, content, successCallback, errorCallback) {
   initFs(function(fs) {
-    __fsWriteToFileCallback({
-      fs: fs,
-      filename: filename,
-      content: content,
-      append: false,
-      success: successCallback,
-      error: errorCallback
-    });
+    if (fs) {
+      __fsWriteToFileCallback({
+        fs: fs,
+        filename: filename,
+        content: content,
+        append: false,
+        success: successCallback,
+        error: errorCallback
+      });
+    } else {
+      // Fallback: Save the file using FileSaver.js
+      FileSaver.saveAs(new Blob([content], { type: 'text/plain;charset=utf-8' }), filename);
+      if (successCallback) successCallback();
+    }
   });
 }
 
 self.fsWriteToFile = fsWriteToFile;
 
 function fsAppendToFile(filename, content, successCallback, errorCallback) {
-  initFs(function(fs) {
-    __fsWriteToFileCallback({
-      fs: fs,
-      filename: filename,
-      content: content,
-      append: true,
-      success: successCallback,
-      error: errorCallback
-    });
+  initFs(function (fs) {
+    if (fs) {
+      __fsWriteToFileCallback({
+        fs: fs,
+        filename: filename,
+        content: content,
+        append: true,
+        success: successCallback,
+        error: errorCallback
+      });
+    } else {
+      // Fallback: Save the file using FileSaver.js
+      FileSaver.saveAs(new Blob([content], { type: 'text/plain;charset=utf-8' }), filename);
+      if (successCallback) successCallback();
+    }
   });
 }
 
@@ -199,31 +211,43 @@ function writeToFile(filename, content, opts, callback) {
   if (!callback) {
     callback = opts.callback;
   }
-  initFs(function(fs) {
-    __fsWriteToFileCallback({
-      fs: fs,
-      filename: filename,
-      content: content,
-      initialContent: opts.initialContent,
-      append: opts.append,
-      success: callback? function(data) { callback(null, data); } : null,
-      error: callback? function(err) { callback(err, null); } : null
-    });
+  initFs(function (fs) {
+    if (fs) {
+      __fsWriteToFileCallback({
+        fs: fs,
+        filename: filename,
+        content: content,
+        initialContent: opts.initialContent,
+        append: opts.append,
+        success: callback ? function (data) { callback(null, data); } : null,
+        error: callback ? function (err) { callback(err, null); } : null
+      });
+    } else {
+      // Fallback: Save the file using FileSaver.js
+      FileSaver.saveAs(new Blob([content], { type: 'text/plain;charset=utf-8' }), filename);
+      if (callback) callback(null);
+    }
   });
 }
 
 self.writeToFile = writeToFile;
 
 function initFs(callback) {
-  console.log('Attempt to use FS!!!');
-  navigator.storage.getDirectory()
-    .then((handle) => {
-      callback({ root: handle });
-    })
-    .catch((error) => {
-      console.log('Error initializing FS!!!!');
-      console.log(error);
-    });
+  console.log('Updated Attempt to use FS!!!');
+  if (navigator.storage && navigator.storage.getDirectory && navigator.storage.getDirectory()) {
+    navigator.storage.getDirectory()
+      .then((handle) => {
+        callback({ root: handle });
+      })
+      .catch((error) => {
+        console.log('Error initializing FS!!!!');
+        console.log(error);
+        callback(null); // Call the callback with null to indicate FS API is not available
+      });
+  } else {
+    console.log('Couldnt use FS!');
+    callback(null); // Call the callback with null to indicate FS API is not available
+  }
 }
 
 self.initFs = initFs;
