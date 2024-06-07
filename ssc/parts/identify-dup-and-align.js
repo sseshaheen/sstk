@@ -41,7 +41,7 @@ if (assetSources) {
 function checkModelAlign(asset, alignToModelId, cb) {
   assetManager.loadModel({ fullId: alignToModelId }, (err, alignToModel) => {
     if (err) {
-      console.error('Error loading asset', alignToModelId);
+      console.error('Error loading asset using identify-dup-and-align.js', alignToModelId);
       cb(err, null);
     } else {
       const sourceMesh = STK.geo.GeometryUtil.mergeMeshesWithTransform(asset.object3D);

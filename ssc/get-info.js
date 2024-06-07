@@ -116,7 +116,7 @@ function processFiles() {
           sceneState = new STK.scene.SceneState(null, sceneInfo);
           sceneState.addObject(modelInstance, cmd.auto_align || cmd.auto_scale);
         } else if (err) {
-          console.error("Error loading asset", info, err);
+          console.error("Error loading asset using get-info.js", info, err);
           return;
         } else {
           console.error("Unsupported asset type ", info, asset);
