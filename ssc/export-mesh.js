@@ -198,7 +198,8 @@ function processFiles() {
 
       console.log('Load asset', info);
       timings.start('load');
-      let loadFunc = info.assetType === 'model' ? 'loadAsset' : 'loadAssetAsScene';
+      // let loadFunc = info.assetType === 'model' ? 'loadAsset' : 'loadAssetAsScene';
+      let loadFunc = 'loadAssetAsScene';
       console.log('Using load function:', loadFunc);  // Debug log
       console.log('Asset information:', JSON.stringify(info, null, 2));  // Debug log
       
