@@ -199,6 +199,9 @@ function processFiles() {
       console.log('Load asset', info);
       timings.start('load');
       let loadFunc = info.assetType === 'model' ? 'loadAsset' : 'loadAssetAsScene';
+      console.log('Using load function:', loadFunc);  // Debug log
+      console.log('Asset information:', JSON.stringify(info, null, 2));  // Debug log
+      
       assetManager[loadFunc](info, function (err, asset) {
         timings.stop('load');
         var sceneState;
@@ -206,6 +209,7 @@ function processFiles() {
         var originalTexturePath;
         if (asset instanceof STK.scene.SceneState) {
           sceneState = asset;
+          console.log('Loaded scene state:', sceneState);  // Debug log
         } else if (asset instanceof STK.model.ModelInstance) {
           var modelInstance = asset;
           var sceneInfo = _.defaults(
@@ -217,6 +221,7 @@ function processFiles() {
           // Hack to discard some nested layers of names for a model instance
           rootObject = modelInstance.getObject3D('Model').children[0];
           originalTexturePath = modelInstance.model.info.texturePath;
+          console.log('Loaded model instance:', modelInstance);  // Debug log
         } else if (err) {
           console.error("Error loading asset", info, err);
           return;

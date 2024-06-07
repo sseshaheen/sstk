@@ -1019,32 +1019,58 @@ AssetManager.prototype.loadAsset = function(info, callback) {
 };
 
 AssetManager.prototype.loadAssetAsScene = function(info, callback) {
+  console.log('Loading asset as scene with info:', info);  // Debug log
   var assetType = info.assetType;
-  var sid = info.fullId? AssetManager.toSourceId(info.source, info.fullId) : null;
+  var sid = info.fullId ? AssetManager.toSourceId(info.source, info.fullId) : null;
 
   if (!assetType && sid) {
     var assetGroup = this.getAssetGroup(sid.source);
     assetType = assetGroup.type;
+    console.log('Determined assetType from assetGroup:', assetType);  // Debug log
   }
   if (assetType === Constants.assetTypeScene || assetType == undefined) {
     if (info.defaultSceneFormat) {
       info.defaultFormat = info.defaultSceneFormat;
     }
-    return this.loadScene(info, callback);
+    console.log('Calling loadScene');  // Debug log
+    return this.loadScene(info, function(err, asset) {
+      if (err) {
+        console.error('Error in loadScene:', err);  // Debug log
+      } else {
+        console.log('Loaded asset in loadScene:', asset);  // Debug log
+      }
+      callback(err, asset);
+    });
   } else if (assetType === Constants.assetTypeModel || assetType === Constants.assetTypeScan) {
-    // TODO: Restore defaultFormat
     if (info.format && sid) {
       var assetGroup = this.getAssetGroup(sid.source);
       assetGroup.defaultFormat = info.format;
     }
-    return this.loadModelAsScene(info, callback);
+    console.log('Calling loadModelAsScene');  // Debug log
+    return this.loadModelAsScene(info, function(err, asset) {
+      if (err) {
+        console.error('Error in loadModelAsScene:', err);  // Debug log
+      } else {
+        console.log('Loaded asset in loadModelAsScene:', asset);  // Debug log
+      }
+      callback(err, asset);
+    });
   } else if (assetType === Constants.assetTypeArch) {
-    return this.loadArch(info, callback, true);
+    console.log('Calling loadArch');  // Debug log
+    return this.loadArch(info, function(err, asset) {
+      if (err) {
+        console.error('Error in loadArch:', err);  // Debug log
+      } else {
+        console.log('Loaded asset in loadArch:', asset);  // Debug log
+      }
+      callback(err, asset);
+    }, true);
   } else {
     console.warn('Cannot load asset', info);
     callback('Cannot load asset', null);
   }
 };
+
 
 AssetManager.prototype.loadModel = function (info, callback) {
   var sid = info.fullId? AssetManager.toSourceId(info.source, info.fullId) : null;
