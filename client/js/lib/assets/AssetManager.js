@@ -862,7 +862,7 @@ AssetManager.prototype.__loadModelUncached = function (modelinfo, callback) {
   };
   var onerror = function(err) {
     if (err) {
-      console.error('Error loading model', modelinfo, err);
+      console.error('Error loading model in AssetManager', modelinfo, err);
     }
     callback(err, null);
   };

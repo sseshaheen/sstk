@@ -105,7 +105,7 @@ function processInputs(inputs, assetsDb) {
     console.log('try load model ' + input);
     assetManager.loadModel(info, function (err, mInst) {
       if (err) {
-        console.error("Error loading model", info, err);
+        console.error("Error loading model in loadModel in color-voxels-file", info, err);
         callback(err);
       } else {
         console.log('Loaded ' + input);

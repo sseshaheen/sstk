@@ -2203,7 +2203,7 @@ SceneViewer.prototype.loadModel = function (source, id, metadata, opts) {
     function (err, modelInstance) {
       scope.removeWaiting(waitingKey, SceneViewer.WAIT.LOAD_MODEL);
       if (err) {
-        console.error('Error loading model', modelId, err);
+        console.error('Error loading model in loadModel in SceneViewer', modelId, err);
         scope.onModelLoadError(modelId);
       } else {
         scope.onModelLoad(loadOptions, modelInstance);
@@ -2405,7 +2405,7 @@ SceneViewer.prototype.__loadModelFromLocal = function (file, opts, cb) {
       res.object3D.name = file.name;
       scope.removeWaiting(waitingKey, SceneViewer.WAIT.LOAD_MODEL);
       if (err) {
-        console.error('Error loading model', modelId, err);
+        console.error('Error loading model in __loadModelFromLocal in SceneViewer', modelId, err);
         scope.onModelLoadError(modelId);
         cb(err);
       } else {
@@ -3869,7 +3869,7 @@ SceneViewer.prototype.addModels = function (objects) {
         this.sceneState.addObject(modelInstance);
       }.bind(this, objects[i]),
       function () {
-        console.error('Error loading model ' + modelId);
+        console.error('Error loading modelin addModels in SceneViewer ' + modelId);
       }
     );
   }

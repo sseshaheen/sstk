@@ -80,7 +80,7 @@ class SceneHelper {
     this.__loadModel((err, result) => {
       if (err) {
         console.error(err);
-        UIUtil.showAlertWithPanel(this.container, 'Error loading model', 'alert-danger', 0);
+        UIUtil.showAlertWithPanel(this.container, 'Error loading model in SceneHelper', 'alert-danger', 0);
       } else {
         //console.log(result);
         const partsInfo = result.partsInfo;

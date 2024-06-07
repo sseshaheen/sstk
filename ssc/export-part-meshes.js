@@ -331,7 +331,7 @@ function processFiles() {
       console.log('Loading model ' + name);
       assetManager.loadModel(info, function(err, modelInstance) {
         if (err) {
-          console.log("Error loading model", err);
+          console.log("Error loading model in export-part-meshes", err);
         } else {
           console.log('Loaded model ' + name);
           processModel(modelInstance);

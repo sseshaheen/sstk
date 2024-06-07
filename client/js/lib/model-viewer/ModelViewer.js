@@ -1057,7 +1057,7 @@ ModelViewer.prototype.clearAndLoadModel = function (modelinfo) {
     var time = end - start;
     console.log('Load time for model: ' + modelIdOrName + ' ' + time);
     if (err) {
-      console.error('Error loading model ' + modelIdOrName, err);
+      console.error('Error loading model in ModelViewer ' + modelIdOrName, err);
     }
     if (scope.__currentLoadInfo === modelinfo) {
       // Still loading this model
